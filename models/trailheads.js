@@ -7,6 +7,6 @@ var TrailheadsSchema = new Schema({
 	description: String
 });
 
-var Trailheads = mongoose.model('Trailheads', TrailheadSchema);
+var Trailheads = mongoose.model('Trailheads', TrailheadsSchema);
 
 module.exports = Trailheads;

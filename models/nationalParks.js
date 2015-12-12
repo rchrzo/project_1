@@ -5,6 +5,7 @@ var Trailheads = require('./trailheads');
 var Content = require('./content');
 
 var nationalParkSchema = new Schema({
+	name: String,
 	coordinates: String,
 	yearEstablished: String,
 	annualVisitors: String,

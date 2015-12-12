@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var ContentSchema = new Schema({
 	coordinates: String,
 	typePhoto: Boolean,
-	url: String
+	url: String,
+	description: String
 });
 
 var Content = mongoose.model('Content', ContentSchema);
