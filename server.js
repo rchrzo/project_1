@@ -13,6 +13,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
  ************/
 var db = require('./models');
 
+app.get('/', function homepage (req, res) {
+  res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/park.html', function parkPage (req, res) {
+  res.sendFile(__dirname + '/views/park.html');
+});
+
 //get the parks 
 app.get('/api/parks', function getParkID (req, res) {
 	db.NationalParks.find({}, function(err, parks) {
