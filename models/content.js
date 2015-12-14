@@ -5,7 +5,8 @@ var ContentSchema = new Schema({
 	coordinates: String,
 	typePhoto: Boolean,
 	url: String,
-	description: String
+	description: String,
+	park: String
 });
 
 var Content = mongoose.model('Content', ContentSchema);
