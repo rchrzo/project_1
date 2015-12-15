@@ -140,13 +140,14 @@ var contentStorage = [];
 // 		});
 // 	});
 // });
-var newTrail = {coordinates: "lat: 20.714861, lng: -156.249868", name: "Pa Ka'oao Trail", description: "view the inside of the crater", park: "Haleakala National Park"};
-db.NationalParks.find({name: newTrail.park}, function (err, parks) {
-	if(err) {
-		return console.log("error", err);
-	}
-	console.log("found your matching park ", parks);
-});
+
+// var newTrail = {coordinates: "lat: 20.714861, lng: -156.249868", name: "Pa Ka'oao Trail", description: "view the inside of the crater", park: "Haleakala National Park"};
+// db.NationalParks.find({name: newTrail.park}, function (err, parks) {
+// 	if(err) {
+// 		return console.log("error", err);
+// 	}
+// 	console.log("found your matching park ", parks);
+// });
  // db.NationalParks.find({}, function(err, parks) {
  // 	console.log("these are your parks", parks);
  // });
