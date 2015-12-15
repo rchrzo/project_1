@@ -1,39 +1,24 @@
 $(document).ready(function() {
 	console.log("Sanity check is working!");
 
-//when clicking one of the buttons
-	//grab the id of the button clicked
-	//get park.html
- var parkClicked = "";
- 
 
-// $('.btn.btn-default.indexButtons').on("click", function (e) {
-//    e.preventDefault();
-//    parkClicked = $(this).attr('id');
-//    console.log(parkClicked);
-//    //localStorage.setItem("parkClicked", parkClicked);
-//    $.ajax({
-// 	   	method: 'GET',
-// 	   	url: '/api/parks/' + parkClicked,
-// 	   	data: parkClicked,
-// 	   	success: function(data){
-// 	   		console.log("completed");
-      
-// 	   	}
-//    })
-//    //AJAX for park clicked
-//    //AJAX w/ redirect to park.html
-//    //window.location.href='/park.html';
-//    //console.log("Well that just happened");
-// });
+  var path = window.location.pathname;
+  var iD = path.substring(path.length-1, path.length);
 
-
-var myLatLng = {lat: 33.992761, lng: -116.207886};
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    zoom: 10
+$.ajax({
+    method: "GET",
+    url: "/api/parks/" + iD + "/trailheads",
+    success: function (data) {
+      console.log(iD);
+      var myLatLng;
+      mapData = data; 
+      myLatLng = data[0].coordinates;
+      console.log(myLatLng);
+      map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
+      zoom: 11
+      });
+    }
 });
-}
 
 });

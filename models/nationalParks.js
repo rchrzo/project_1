@@ -6,7 +6,7 @@ var Content = require('./content');
 
 var nationalParkSchema = new Schema({
 	name: String,
-	coordinates: String,
+	coordinates: {},
 	yearEstablished: String,
 	annualVisitors: String,
 	description: String,

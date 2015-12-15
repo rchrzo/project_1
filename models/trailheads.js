@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var TrailheadsSchema = new Schema({
-	coordinates: String, 
+	coordinates: {}, 
 	name: String,
 	description: String,
 	park: String

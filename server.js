@@ -25,24 +25,28 @@ app.get('/park.html', function parkPage(req, res) {
     res.sendFile(__dirname + '/views/park.html');
 });
 
+function idNumToName(idNum) {
+    var parkName = ""; 
+        switch(idNum) {
+            case "1": 
+                parkName = "Joshua Tree National Park";
+                break;
+            case "2":
+                parkName = "Haleakala National Park";
+                break;
+            case "3":
+                parkName = "Grand Canyon National Park";
+                break;
+            default:
+                parkName = "undefined";
+        }
+    return parkName;
+}
 
 //get the parks by id
 app.get('/parks/:id', function getParkID(req, res) {
     var parkId = req.params.id;
-    var parkName = "";
-    switch(parkId) {
-        case "1": 
-            parkName = "Joshua Tree National Park";
-            break;
-        case "2":
-            parkName = "Haleakala National Park";
-            break;
-        case "3":
-            parkName = "Grand Canyon National Park";
-            break;
-        default:
-            parkName = "undefined";
-    }
+    var parkName = idNumToName(parkId);
     console.log("Expecting park name: ", parkName);
     db.NationalParks.findOne({name: parkName}, function(err, park) {
     	console.log("expecting park object:", park);
@@ -77,18 +81,16 @@ app.get('/api/content', function getMediaContent(req, res) {
 // THIS WILL GET ALL TRAILHEADS FROM ONE PARK
 // //get the trailheads
 app.get('/api/parks/:id/trailheads', function indexTrailheads(req, res) {
-    console.log("made it this far");
-    var parkTrails = [];
-    // FIND ONE NOT ALL
-    db.NationalParks.find({}, function(err, parks) {
+    console.log("expecting a park id number: ", req.params.id)
+    var parkId = req.params.id;
+    var parkName = idNumToName(parkId);
+    //FIND ONE NOT ALL
+    db.NationalParks.findOne({name: parkName}, function(err, park) {
         if (err) {
-            return console.log("error", err);
+            return console.log("error could not find matching park", err);
         }
-        console.log(parks);
-        parks.forEach(function(elem) {
-            parkTrails.push(elem.trails);
-        });
-        res.json(parkTrails);
+        console.log(park);
+        res.json(park.trails);
     });
 });
 

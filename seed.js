@@ -4,7 +4,7 @@ var parkList = [];
 
 parkList.push({
 	name: "Joshua Tree National Park",
-	coordinates: "lat: 34.079500, lng: -116.256638",
+	coordinates: {lat: 34.079500, lng: -116.256638},
 	yearEstablished: "1994",
 	annualVisitors: "1383340",
 	description: "Joshua Tree National Park is a desert wilderness located in Southern California. It is known for its distinctive trees which seems to reference biblical figure Joshua leading his people to the promised land with upstreched arms.",
@@ -14,7 +14,7 @@ parkList.push({
 
 parkList.push({
 	name: "Haleakala National Park",
-	coordinates: "lat: 20.709722, lng: -156.253333",
+	coordinates: {lat: 20.709722, lng: -156.253333},
 	yearEstablished: "1961",
 	annualVisitors: "1142040",
 	description: "Haleakala National Park is volcano located on the Hawaiian Island of Maui. The last time the volcano erupted was more than 400 years ago. Today the crater is home to many rare species of flora and fauna.",
@@ -24,7 +24,7 @@ parkList.push({
 
 parkList.push({
 	name: "Grand Canyon National Park",
-	coordinates: "lat: 36.055160, lng: -112.122613",
+	coordinates: {lat: 36.055160, lng: -112.122613},
 	yearEstablished: "1919",
 	annualVisitors: "4756771",
 	description: "Known as one of the Seven Natural Wonders of the World, the Grand Canyon is a large gorge of the Colorado River.",
@@ -35,24 +35,24 @@ parkList.push({
 
 var myContent = [];
 
-myContent.push({coordinates: "lat: 36.055160, lng: -112.144296", typePhoto: true, url: "http://www.nps.gov/brca/learn/nature/images/111birdcount2a.jpg", description: "cool blue bird on the trail", park: "Grand Canyon National Park"});
-myContent.push({coordinates: "lat: 20.710346, lng: -156.252912", typePhoto: true, url: "http://www.gohawaii.com/en/assets/Image/MAUI/18631_mauiResized.rar/resized/Haleakala-Sunrise.jpg", description: "amazing sunrise from the observatory", park: "Haleakala National Park"});
-myContent.push({coordinates: "lat: 34.0241794, lng: -116.1585505", typePhoto: true, url: "http://images.summitpost.org/medium/631269.JPG", description: "this is a cool rock", park: "Joshua Tree National Park"});
+myContent.push({coordinates: {lat: 36.055160, lng: -112.144296}, typePhoto: true, url: "http://www.nps.gov/brca/learn/nature/images/111birdcount2a.jpg", description: "cool blue bird on the trail", park: "Grand Canyon National Park"});
+myContent.push({coordinates: {lat: 20.710346, lng: -156.252912}, typePhoto: true, url: "http://www.gohawaii.com/en/assets/Image/MAUI/18631_mauiResized.rar/resized/Haleakala-Sunrise.jpg", description: "amazing sunrise from the observatory", park: "Haleakala National Park"});
+myContent.push({coordinates: {lat: 34.0241794, lng: -116.1585505}, typePhoto: true, url: "http://images.summitpost.org/medium/631269.JPG", description: "this is a cool rock", park: "Joshua Tree National Park"});
 
 
 
 var myTrails = [];
 
 myTrails.push({
-	coordinates: "lat: 36.060902, lng: -112.212188", name: "Hermit Trail", description: "Awesome trail on the west end of the canyon that extends down through the canyon walls.", park: "Grand Canyon National Park"
+	coordinates: {lat: 36.060902, lng: -112.212188}, name: "Hermit Trail", description: "Awesome trail on the west end of the canyon that extends down through the canyon walls.", park: "Grand Canyon National Park"
 });
 
 myTrails.push({
-	coordinates: "lat: 20.714400, lng: -156.250981", name: "Keoneheehee Trail", description: "walk the edge of the crater", park: "Haleakala National Park"
+	coordinates: {lat: 20.714400, lng: -156.250981}, name: "Keoneheehee Trail", description: "walk the edge of the crater", park: "Haleakala National Park"
 });
 
 myTrails.push({
-	coordinates: "lat: 34.040196, lng: -116.186342", name: "Boy Scouts Trail", description: "medium difficulty trail, bring lots of water", park: "Joshua Tree National Park"
+	coordinates: {lat: 34.040196, lng: -116.186342}, name: "Boy Scouts Trail", description: "medium difficulty trail, bring lots of water", park: "Joshua Tree National Park"
 });
 
  // Create, delete, update, find for National Parks 

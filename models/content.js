@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ContentSchema = new Schema({
-	coordinates: String,
+	coordinates: {},
 	typePhoto: Boolean,
 	url: String,
 	description: String,
