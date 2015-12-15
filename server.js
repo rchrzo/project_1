@@ -9,6 +9,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+//handlebars
+app.set('view engine', 'hbs');
 
 /************
  * DATABASE *
@@ -25,19 +27,31 @@ app.get('/park.html', function parkPage(req, res) {
 
 
 //get the parks by id
-app.get('/api/parks/:id', function getParkID(req, res) {
-    console.log("ON SERVER SIDE");
-    console.log("REQ Params: ", req.params.id);
+app.get('/parks/:id', function getParkID(req, res) {
     var parkId = req.params.id;
-    console.log(req.params.id);
-    db.NationalParks.find({name: parkId}, function(err, park) {
-    	res.redirect('/park.html');
+    var parkName = "";
+    switch(parkId) {
+        case "1": 
+            parkName = "Joshua Tree National Park";
+            break;
+        case "2":
+            parkName = "Haleakala National Park";
+            break;
+        case "3":
+            parkName = "Grand Canyon National Park";
+            break;
+        default:
+            parkName = "undefined";
+    }
+    console.log("Expecting park name: ", parkName);
+    db.NationalParks.findOne({name: parkName}, function(err, park) {
+    	console.log("expecting park object:", park);
+        res.render('park', {park: park});
     });
 });
 
-//get the parks 
+//get all of the parks 
 app.get('/api/parks', function getParkID(req, res) {
-    console.log("I AM IN api/parks for some reason");
     db.NationalParks.find({}, function(err, parks) {
         res.json(parks);
     });
@@ -118,7 +132,7 @@ app.post('/api/parks/:id/trailheads', function createTrailhead(req, res) {
 });
 
 //update a trailhead
-// app.put('/api/parks/trailheads/:id', function updateTrailhead(req, res) {
+// app.put('/api/parks/:id/trailheads/:id2', function updateTrailhead(req, res) {
 //     //get the trail id and body
 //     var trailBody = {
 //         name: "Secret Trail",

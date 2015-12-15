@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Park Page</title>
+
+	<!-- StyleSheet -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/styles.css">
+
+	<!-- ImportantScripts -->	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41fVSrzYimt6MV8mTm-nYwz61PyUMsL0&callback=initMap">
+    </script>
+ 
+    <!-- ApplicationScripts -->
+    <script src="../js/app.js"></script>
+
+</head>
+<body>
+	<h1>{{park.name}}</h1>
+	<div class="row">
+	  <div class="col-lg-12" id="bannerBox">banner to go here</div>
+	  <br>
+	  <br>
+	  <div class="col-lg-12" id="mapBox">this is where your map will go
+		<div id="map"></div>
+		<li>{{park.trails}}</li>
+		<li>{{park.content}}</li>
+	  </div>
+	  <br>
+	  <br>
+	  <div class="col-lg-12" id="descriptionBox">
+	  	<p>Year Established: {{park.yearEstablished}}</p>
+	  	<p>Annual Visitors: {{park.annualVisitors}}</p>
+	  	<p>Description: {{park.description}}</p>
+	  </div>
+	  <div class="col-lg-12" id="mediaBox">eventually media will go here
+	  </div>
+	  <div class="col-lg-12" id="trailBox">
+	  	<br>
+	  	<li><button type="button" class="btn btn-default">Add Trail</button></li>
+	  	 <li><button type="button" class="btn btn-default">Update Trail</button></li> 
+	  </div>
+</body>
+</html>

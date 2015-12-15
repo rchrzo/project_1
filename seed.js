@@ -62,84 +62,84 @@ var contentStorage = [];
 
 // remove the parks 
 
-// db.NationalParks.remove({}, function (err, parks){
-// 	if(err) {
-// 		return console.log("Error", err);
-// 	}
-// 	console.log("deleted all parks from your database");
-// 	//create the parks
-// 	db.NationalParks.create(parkList, function (err, newParks) {
-// 		if(err) {
-// 			return console.log('Error, unable to remove parks', err);
-// 		}
-// 		console.log("all parks: ", newParks);
-// 		//remove all trails
-// 		db.Trailheads.remove(myTrails, function (err, trails) {
-// 			if(err) {
-// 				return console.log("error, unable to remove trails", err);
-// 			}
-// 			console.log("removed all trails");
-// 			//create trails
-// 			db.Trailheads.create(myTrails, function (err, trails) {
-// 			if(err) {
-// 				return console.log("error", err);
-// 			}
-// 			console.log("created your trails", trails);
-// 			trailStorage = trails;
-// 			//remove content
-// 			db.Content.remove({}, function (err, content){
-// 				if(err) {
-// 					return console.log("Error, content not removed", err);
-// 				}
-// 				console.log("successfully removed content...creating now...");
-// 				db.Content.create(myContent, function (err, content) {
-// 					if(err) {
-// 						return console.log("Error, content not created", err);
-// 					}
-// 					console.log("created your content");
-// 					contentStorage = content;
-// 					db.NationalParks.find({}, function (err, parks) {
-// 						if(err) {
-// 							return console.log("error", err);
-// 						}
-// 						//push trails onto parks
-// 						console.log("The length of trails is " + trailStorage.length);						
-// 						parks.forEach(function (elem) {
-// 							for(i = 0; i < trailStorage.length; i++) {
-// 								console.log("(Trails) Looking for " + trailStorage[i].park + " against " + elem.name);								
-// 								if(elem.name === trailStorage[i].park) {
-// 									elem.trails.push(trailStorage[i]);
-// 									console.log(elem.trails);
-// 									console.log("match");
-// 								}
-// 							}
-// 							db.NationalParks.findOneAndUpdate({"_id": elem.id}, {trails: elem.trails}, function (err, updatedPark) {
-// 									console.log("Trails added to parks");
-// 							});
-// 						});	
+db.NationalParks.remove({}, function (err, parks){
+	if(err) {
+		return console.log("Error", err);
+	}
+	console.log("deleted all parks from your database");
+	//create the parks
+	db.NationalParks.create(parkList, function (err, newParks) {
+		if(err) {
+			return console.log('Error, unable to remove parks', err);
+		}
+		console.log("all parks: ", newParks);
+		//remove all trails
+		db.Trailheads.remove(myTrails, function (err, trails) {
+			if(err) {
+				return console.log("error, unable to remove trails", err);
+			}
+			console.log("removed all trails");
+			//create trails
+			db.Trailheads.create(myTrails, function (err, trails) {
+			if(err) {
+				return console.log("error", err);
+			}
+			console.log("created your trails", trails);
+			trailStorage = trails;
+			//remove content
+			db.Content.remove({}, function (err, content){
+				if(err) {
+					return console.log("Error, content not removed", err);
+				}
+				console.log("successfully removed content...creating now...");
+				db.Content.create(myContent, function (err, content) {
+					if(err) {
+						return console.log("Error, content not created", err);
+					}
+					console.log("created your content");
+					contentStorage = content;
+					db.NationalParks.find({}, function (err, parks) {
+						if(err) {
+							return console.log("error", err);
+						}
+						//push trails onto parks
+						console.log("The length of trails is " + trailStorage.length);						
+						parks.forEach(function (elem) {
+							for(i = 0; i < trailStorage.length; i++) {
+								console.log("(Trails) Looking for " + trailStorage[i].park + " against " + elem.name);								
+								if(elem.name === trailStorage[i].park) {
+									elem.trails.push(trailStorage[i]);
+									console.log(elem.trails);
+									console.log("match");
+								}
+							}
+							db.NationalParks.findOneAndUpdate({"_id": elem.id}, {trails: elem.trails}, function (err, updatedPark) {
+									console.log("Trails added to parks");
+							});
+						});	
 
-// 						console.log("The length of contentStorage is " + contentStorage.length);
-// 						console.log("Content looks like: " + contentStorage);
-// 						parks.forEach(function (elem) {
-// 							for(j = 0; j < contentStorage.length; j++) {
-// 								console.log("(Content) Looking for " + contentStorage[j].park + " against " + elem.name);
-// 								if(elem.name === contentStorage[j].park) {
-// 									console.log("matching content");
-// 									elem.content.push(contentStorage[j]);
-// 									console.log("matching content", elem.content);
-// 								}
-// 							}
-// 							db.NationalParks.findOneAndUpdate({"_id": elem.id}, {content: elem.content}, function (err, updatedContent) {
-// 								console.log("Content added to parks");
-// 							});
-// 						});
-// 					});
-// 				});
-// 			});
-// 			});
-// 		});
-// 	});
-// });
+						console.log("The length of contentStorage is " + contentStorage.length);
+						console.log("Content looks like: " + contentStorage);
+						parks.forEach(function (elem) {
+							for(j = 0; j < contentStorage.length; j++) {
+								console.log("(Content) Looking for " + contentStorage[j].park + " against " + elem.name);
+								if(elem.name === contentStorage[j].park) {
+									console.log("matching content");
+									elem.content.push(contentStorage[j]);
+									console.log("matching content", elem.content);
+								}
+							}
+							db.NationalParks.findOneAndUpdate({"_id": elem.id}, {content: elem.content}, function (err, updatedContent) {
+								console.log("Content added to parks");
+							});
+						});
+					});
+				});
+			});
+			});
+		});
+	});
+});
 
 // var newTrail = {coordinates: "lat: 20.714861, lng: -156.249868", name: "Pa Ka'oao Trail", description: "view the inside of the crater", park: "Haleakala National Park"};
 // db.NationalParks.find({name: newTrail.park}, function (err, parks) {
