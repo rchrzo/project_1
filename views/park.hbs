@@ -38,9 +38,9 @@
 	  	<button type="button" class="btn btn-default" id="addTrailButton">Add Trail</button>
 	  	</p>
 	  	<p>
-	  	Want to update information about an existing trail?
+	  	Want to remove an existing trail?
 	  	<br>
-	  	<button type="button" class="btn btn-default" id="updateTrailButton">Remove Trail</button> 
+	  	<button type="button" class="btn btn-default" id="deleteTrailButton">Delete</button> 
 	  	</p>
 	  </div>
 
@@ -109,15 +109,18 @@
 
            		<!--  Dropdown of existing trails -->
            		<div class ="dropdown">
-	           		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Current Trails
+	           		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1delete" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Current Trails
 		           		<span class="caret"></span>
 	           		</button>
 	           		<ul class = "dropdown-menu" aria-labelledby="dropdownMenu1">
-	           			<li><a href="#">{{#each park.trails[0].name}}</a></li>
+	           		{{#each park.trails}}
+	           			<li id= "liTrailName"><a id = "{{name}}">{{name}}</a></li>
+	           		{{/each}}
 	           		</ul>
            		</div>
 
            		<!-- submit button -->
+           		<br>
            		<div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			        <button type="button" class="btn btn-primary" id="deleteTrail">Delete</button>

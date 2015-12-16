@@ -77,8 +77,20 @@ $('#addTrailButton').on("click", function (e) {
 $('#submitTrail').on("click", handleTrailCreate);
 
 //delete trail
+var trailToDelete = "";
 
-
+$('#deleteTrailButton').on("click", function (e){
+    $('#deleteTrailModal').modal();
+    $('.dropdown-menu a').on("click", function (e){    
+    $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
+      $('#dropdownMenu1delete').text()    
+    });
+    $('#deleteTrail').on("click", function (e) {
+      trailToDelete = $('#dropdownMenu1delete').text();
+      console.log("expecting trailToDelete to be :", trailToDelete);
+      handleDeleteTrail();
+    });
+});
 
 //I know this is hackey
 function idNumToName(idNum) {
@@ -122,7 +134,7 @@ function handleTrailCreate (e) {
       park: parkId
     }
 
-     console.log(typeof formData.coordinates.lat === 'number');
+    console.log(typeof formData.coordinates.lat === 'number');
     console.log(typeof formData.coordinates.lng === 'number');
 
     console.log("expecting full trail object ready for post: ", formData);
@@ -149,7 +161,10 @@ function handleTrailCreate (e) {
 }
 
 
-
+function handleDeleteTrail (e) {
+  console.log("Expecting trailToDelete to be a string of a park: ", trailToDelete);
+  
+}
 
 
 
