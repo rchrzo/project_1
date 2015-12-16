@@ -17,14 +17,6 @@ app.set('view engine', 'hbs');
  ************/
 var db = require('./models');
 
-app.get('/', function homepage(req, res) {
-    res.sendFile(__dirname + '/views/index.html');
-});
-
-app.get('/park.html', function parkPage(req, res) {
-    res.sendFile(__dirname + '/views/park.html');
-});
-
 function idNumToName(idNum) {
     var parkName = ""; 
         switch(idNum) {
@@ -40,8 +32,17 @@ function idNumToName(idNum) {
             default:
                 parkName = "undefined";
         }
+    console.log("the park you're looking for", parkName);
     return parkName;
 }
+
+app.get('/', function homepage(req, res) {
+    res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/park.html', function parkPage(req, res) {
+    res.sendFile(__dirname + '/views/park.html');
+});
 
 //get the parks by id
 app.get('/parks/:id', function getParkID(req, res) {
@@ -54,6 +55,17 @@ app.get('/parks/:id', function getParkID(req, res) {
     });
 });
 
+//get the parks by id
+app.get('/api/parks/json/:id', function getParkID(req, res) {
+    var parkId = req.params.id;
+    var parkName = idNumToName(parkId);
+    console.log("Expecting park name: ", parkName);
+    db.NationalParks.findOne({name: parkName}, function (err, park) {
+        console.log("expecting park object:", park);
+        res.json(park);
+    });
+});
+
 //get all of the parks 
 app.get('/api/parks', function getParkID(req, res) {
     db.NationalParks.find({}, function(err, parks) {
@@ -62,21 +74,36 @@ app.get('/api/parks', function getParkID(req, res) {
 });
 
 
-// //get the content
-app.get('/api/content', function getMediaContent(req, res) {
-    var parkContent = [];
-    db.NationalParks.find({}, function(err, parks) {
-        if (err) {
-            console.log("error", err);
-        }
-        console.log(parks);
-        parks.forEach(function(elem) {
-            parkContent.push(elem.content);
-        });
-        //res.json(parkContent);
 
+app.get('/api/parks/:id/content', function getParkContent (req, res) {
+     console.log("expecting a park id number: ", req.params.id)
+    var parkId = req.params.id;
+    var parkName = idNumToName(parkId);
+    //FIND ONE NOT ALL
+    db.NationalParks.findOne({name: parkName}, function(err, park) {
+        if (err) {
+            return console.log("error could not find matching park", err);
+        }
+        console.log(park);
+        res.json(park.content);
     });
 });
+
+// //get the content
+// app.get('/api/content', function getMediaContent(req, res) {
+//     var parkContent = [];
+//     db.NationalParks.find({}, function(err, parks) {
+//         if (err) {
+//             console.log("error", err);
+//         }
+//         console.log(parks);
+//         parks.forEach(function(elem) {
+//             parkContent.push(elem.content);
+//         });
+//         //res.json(parkContent);
+
+//     });
+// });
 
 // THIS WILL GET ALL TRAILHEADS FROM ONE PARK
 // //get the trailheads

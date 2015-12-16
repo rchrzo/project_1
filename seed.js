@@ -52,6 +52,10 @@ myTrails.push({
 });
 
 myTrails.push({
+	coordinates: {lat: 20.712193, lng: -156.254854}, name: "Crater Trail", description: "don't try to hike this, bro", park: "Haleakala National Park"
+});
+
+myTrails.push({
 	coordinates: {lat: 34.040196, lng: -116.186342}, name: "Boy Scouts Trail", description: "medium difficulty trail, bring lots of water", park: "Joshua Tree National Park"
 });
 
