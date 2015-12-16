@@ -69,9 +69,13 @@ $.ajax({
     }
 });
 
+//create trail
 $('#addTrailButton').on("click", function (e) {
    $('#createTrailModal').modal();
 });
+
+$('#submitTrail').on("click", handleTrailCreate);
+
 
 
 
@@ -99,28 +103,35 @@ function handleTrailCreate (e) {
     var parkId = iD;
     var trailName = $('#trailName').val();
     var latitude = $('#trailLat').val();
-    var longitude = $('#traiLng').val();
+    var longitude = $('#trailLng').val();
     var trailDescription = $('#trailDescription').val();
     parkId = idNumToName(parkId);
     console.log("expecting park id string: ", parkId)
     
     var formData = {
       coordinates: {lat: latitude, lng: longitude},
-      name: traiName,
+      name: trailName,
       description: trailDescription,
       park: parkId
     }
 
     console.log("expecting full trail object ready for post: ", formData);
+    function urlConcat(iD) {
+      var url = "/api/parks/";
+      url += iD + "/trailheads";
+      return url;
+    }
+    var expectedUrl = urlConcat(iD);
+    console.log("our expected url is: ", expectedUrl);
     $.ajax({
-        method: "PUT",
-        url: "/api/parks/" + iD + "/trailheads",
+        method: "POST",
+        url: expectedUrl,
         data: formData,
         success: function (result) {
           console.log("expecting a successul post result to trailheads: ", result);
         }
     });
-    
+
     $('#trailName').val('');
     $('#trailLat').val('');
     $('#traiLng').val('');

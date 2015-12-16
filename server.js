@@ -44,7 +44,7 @@ app.get('/park.html', function parkPage(req, res) {
     res.sendFile(__dirname + '/views/park.html');
 });
 
-//get the parks by id
+// get the parks by id
 app.get('/parks/:id', function getParkID(req, res) {
     var parkId = req.params.id;
     var parkName = idNumToName(parkId);
@@ -123,41 +123,64 @@ app.get('/api/parks/:id/trailheads', function indexTrailheads(req, res) {
 
 // //create a trailhead FOR PARK :ID
 app.post('/api/parks/:id/trailheads', function createTrailhead(req, res) {
-    var newTrail = {
-        coordinates: "lat: 20.714861, lng: -156.249868",
-        name: "Pa Ka'oao Trail",
-        description: "view the inside of the crater",
-        park: "Haleakala National Park"
-    };
-    // create a Trailhead 
-    db.Trailheads.create(newTrail, function(err, trail) {
+    var trailBody = req.body;
+    console.log("You hit post.")
+    console.log("trailBody: ", trailBody);
+
+    db.Trailheads.create(trailBody, function(err, trail) {
         if (err) {
             console.log("error on create", err);
         }
         console.log("expecting a trail object to be created, " + "created new trail", trail);
-        // if it matches the park 
-        db.NationalParks.find({
-            name: newTrail.park
-        }, function(err, parks) {
-            if (err) {
-                console.log("could not find matching park", err);
+        db.NationalParks.update({name: trail.park}, {$push: {trails: trail}}, {upsert: true}, function (err, park) {
+            if(err) {
+                console.log("error finding and updating", err);
             }
-            console.log("found your matching park ", parks.name);
-            var parkId = parks.id;
-            parks.trails.push(trail);
-            db.NationalParks.findOneAndUpdate({
-                "_id": parkId
-            }, {
-                trails: trail
-            }, function(err, aTrail) {
-                if (err) {
-                    console.log("error adding trail to park", err);
-                }
-                console.log("added this trail to your park, ", aTrail);
-                res.send("200, okay");
+            console.log("expecting updated park object", park);
+            res.send("done");
             });
         });
-    });
+            //find the park ONE
+            //in callback push new trail onto park.trail
+            //db.parks.save
+
+
+    //was this put?
+    // var newTrail = {
+    //     coordinates: "lat: 20.714861, lng: -156.249868",
+    //     name: "Pa Ka'oao Trail",
+    //     description: "view the inside of the crater",
+    //     park: "Haleakala National Park"
+    // };
+    // // create a Trailhead 
+    // db.Trailheads.create(newTrail, function(err, trail) {
+    //     if (err) {
+    //         console.log("error on create", err);
+    //     }
+    //     console.log("expecting a trail object to be created, " + "created new trail", trail);
+    //     // if it matches the park 
+    //     db.NationalParks.find({
+    //         name: newTrail.park
+    //     }, function(err, parks) {
+    //         if (err) {
+    //             console.log("could not find matching park", err);
+    //         }
+    //         console.log("found your matching park ", parks.name);
+    //         var parkId = parks.id;
+    //         parks.trails.push(trail);
+    //         db.NationalParks.findOneAndUpdate({
+    //             "_id": parkId
+    //         }, {
+    //             trails: trail
+    //         }, function(err, aTrail) {
+    //             if (err) {
+    //                 console.log("error adding trail to park", err);
+    //             }
+    //             console.log("added this trail to your park, ", aTrail);
+    //             res.send("200, okay");
+    //         });
+    //     });
+    // });
 });
 
 //update a trailhead
