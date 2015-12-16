@@ -136,8 +136,14 @@ app.post('/api/parks/:id/trailheads', function createTrailhead(req, res) {
                 if(err) {
                     console.log("ERROR SAVING: ", err);
                 }
-                console.log("NEW TRAILHEAD CREATED ", savedEvent);
-                res.send(trailhead)
+                console.log("NEW TRAILHEAD CREATED WITHIN PARK", savedEvent);
+                db.Trailheads.create(trailhead, function (err, trail) {
+                    if(err) {
+                        console.log("error crrating new trailhead", err)
+                    }
+                    console.log("CREATED TRAILHEAD WITHIN TRAILHEAD ", trail);
+                    res.send(trail);
+                });
             });
         });
 });
