@@ -69,6 +69,70 @@ $.ajax({
     }
 });
 
+$('#addTrailButton').on("click", function (e) {
+   $('#createTrailModal').modal();
+});
+
+
+
+//I know this is hackey
+function idNumToName(idNum) {
+    var parkName = ""; 
+        switch(idNum) {
+            case "1": 
+                parkName = "Joshua Tree National Park";
+                break;
+            case "2":
+                parkName = "Haleakala National Park";
+                break;
+            case "3":
+                parkName = "Grand Canyon National Park";
+                break;
+            default:
+                parkName = "undefined";
+        }
+    console.log("the park you're looking for", parkName);
+    return parkName;
+}
+
+function handleTrailCreate (e) {
+    var parkId = iD;
+    var trailName = $('#trailName').val();
+    var latitude = $('#trailLat').val();
+    var longitude = $('#traiLng').val();
+    var trailDescription = $('#trailDescription').val();
+    parkId = idNumToName(parkId);
+    console.log("expecting park id string: ", parkId)
+    
+    var formData = {
+      coordinates: {lat: latitude, lng: longitude},
+      name: traiName,
+      description: trailDescription,
+      park: parkId
+    }
+
+    console.log("expecting full trail object ready for post: ", formData);
+    $.ajax({
+        method: "PUT",
+        url: "/api/parks/" + iD + "/trailheads",
+        data: formData,
+        success: function (result) {
+          console.log("expecting a successul post result to trailheads: ", result);
+        }
+    });
+    
+    $('#trailName').val('');
+    $('#trailLat').val('');
+    $('#traiLng').val('');
+    $('#trailDescription').val('');
+}
+
+
+
+
+
+
+
 
 
 
