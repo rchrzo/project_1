@@ -76,6 +76,7 @@ $('#addTrailButton').on("click", function (e) {
 
 $('#submitTrail').on("click", handleTrailCreate);
 
+//delete trail
 
 
 

@@ -40,7 +40,7 @@
 	  	<p>
 	  	Want to update information about an existing trail?
 	  	<br>
-	  	<button type="button" class="btn btn-default" id="updateTrailButton">Update or Remove Trail</button> 
+	  	<button type="button" class="btn btn-default" id="updateTrailButton">Remove Trail</button> 
 	  	</p>
 	  </div>
 
@@ -96,6 +96,37 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <!-- Delete Trail Modal -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="deleteTrailModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					 <h4 class="modal-title">Delete Trail</h4>
+				 </div>
+				 <div class="modal-body">
+           		 <fieldset class='form-horizontal'>
+
+           		<!--  Dropdown of existing trails -->
+           		<div class ="dropdown">
+	           		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Current Trails
+		           		<span class="caret"></span>
+	           		</button>
+	           		<ul class = "dropdown-menu" aria-labelledby="dropdownMenu1">
+	           			<li><a href="#">{{#each park.trails[0].name}}</a></li>
+	           		</ul>
+           		</div>
+
+           		<!-- submit button -->
+           		<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" id="deleteTrail">Delete</button>
+			     </div>
+				</fieldset>
+				</div>
+			</div><!-- /.modal-content -->
+     	 </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
 
