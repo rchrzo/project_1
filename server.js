@@ -126,20 +126,35 @@ app.post('/api/parks/:id/trailheads', function createTrailhead(req, res) {
     var trailBody = req.body;
     console.log("You hit post.")
     console.log("trailBody: ", trailBody);
-
-    db.Trailheads.create(trailBody, function(err, trail) {
-        if (err) {
-            console.log("error on create", err);
-        }
-        console.log("expecting a trail object to be created, " + "created new trail", trail);
-        db.NationalParks.update({name: trail.park}, {$push: {trails: trail}}, {upsert: true}, function (err, park) {
+        db.NationalParks.findOne({name: trailBody.park}, function (err, park) {
             if(err) {
-                console.log("error finding and updating", err);
+                console.log("ERROR FINDING PARK: ", park);
             }
-            console.log("expecting updated park object", park);
-            res.send("done");
+            var trailhead = new db.Trailheads(trailBody);
+            park.trails.push(trailhead);
+            park.save(function (err, savedEvent) {
+                if(err) {
+                    console.log("ERROR SAVING: ", err);
+                }
+                console.log("NEW TRAILHEAD CREATED ", savedEvent);
+                res.send(trailhead)
             });
         });
+
+
+    // db.Trailheads.create(trailBody, function(err, trail) {
+    //     if (err) {
+    //         console.log("error on create", err);
+    //     }
+    //     console.log("expecting a trail object to be created, " + "created new trail", trail);
+    //     db.NationalParks.update({name: trail.park}, {$addToSet: {trails: trail}}, function (err, park) {
+    //         if(err) {
+    //             console.log("error finding and updating", err);
+    //         }
+    //         console.log("expecting updated park object", park);
+    //         res.send("done");
+    //         });
+    //     });
             //find the park ONE
             //in callback push new trail onto park.trail
             //db.parks.save

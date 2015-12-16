@@ -108,12 +108,21 @@ function handleTrailCreate (e) {
     parkId = idNumToName(parkId);
     console.log("expecting park id string: ", parkId)
     
+    latitude = parseFloat(latitude);
+    longitude = parseFloat(longitude);
+    console.log(typeof longitude === 'number');
+    console.log(typeof latitude === 'number');
+    console.log("lat" + latitude + "lng" + longitude);
+
     var formData = {
       coordinates: {lat: latitude, lng: longitude},
       name: trailName,
       description: trailDescription,
       park: parkId
     }
+
+     console.log(typeof formData.coordinates.lat === 'number');
+    console.log(typeof formData.coordinates.lng === 'number');
 
     console.log("expecting full trail object ready for post: ", formData);
     function urlConcat(iD) {
