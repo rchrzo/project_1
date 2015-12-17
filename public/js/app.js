@@ -74,19 +74,23 @@ $.ajax({
       console.log("expecting an array full of Content objects: ", dataContent)
           dataContent.forEach(function (elem){
           var contentString = elem.description;
+          var contentId = elem._id;
+          var type = elem.typePhoto;
+          var url = elem.url;
+          console.log("here is your content id:", contentId);
           var infowindow = new google.maps.InfoWindow({
-              content: contentString,
-              maxWidth: 300
+              content: contentString,  
+              maxWidth: 300,
+              id: contentId
           });
           var marker = new google.maps.Marker({
             position: elem.coordinates,
             map: map,
             title: elem.name
-            });
-            marker.addListener('click', function() {
-              infowindow.open(map, marker);
-              console.log(this.marker);
-              renderMedia();
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+            renderMedia(contentId, url, type);
           });
       });
     }
@@ -216,15 +220,15 @@ $.ajax({
 
 }
 
-function renderMedia (e) {
-  $.ajax({
-    method: "GET",
-    url: "/api/parks/json/" + iD,
-    success: function (data) {
-      console.log(data.content);
-
-    }
-  });
+function renderMedia (contentId, url, type) {
+console.log("Expecting content id string", contentId);
+  if(type) {
+    //description append with img scr
+    $('#descriptionBox').append("<img src=" + url + ">");
+  } else {
+    //description append with iframe 
+    $('#descriptionBox').append("<iframe width=" + "560" + "height=" + "315" + " src=" + "https://www.youtube.com/embed/ooWkA_-lOHA" + "frameborder=" + "0" + "allowfullscreen></iframe>");
+  }
 }
 
 
