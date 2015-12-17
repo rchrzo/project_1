@@ -190,24 +190,58 @@ app.get('/api/trailheads', function showTrailheads (req, res) {
 app.put('/api/parks/:id/trailheads/:id2', function updateTrailhead (req, res) {
     var newBody = req.body;
     var uniqueId = req.params.id2;
+    var parkId = idNumToName(req.params.id); 
+    console.log("park id is ", parkId);
 
     console.log("Expecting string name ", uniqueId);
-    console.log(typeof uniqueId === 'String') 
+    console.log(typeof uniqueId === 'string'); 
+
     console.log("Expecting updated information obj ", newBody);
-    db.Trailheads.findOneAndUpdate({name: uniqueId}, newBody, function (err, trailhead) {
-        if(err) {
-            console.log("Error finding corresponding trailhead", err);
-        } 
-        console.log("FOUND TRAILHEAD AND UPDATED IT IN TRAILHEADS: ", trailhead);
-            db.NationalParks.findOneAndUpdate({'trails._id': trailhead._id}, {$set: { trails: newBody}}, function (err, park) {
+    db.NationalParks.findOneAndUpdate({'name': parkId, 'trails.name': uniqueId}, {$set: {"trails.$" : newBody}}, function (err, park) {
                 if(err) {
                     console.log("unable to update", err);
                 }
                 console.log("FOUND AND UPDATED TRAIL WITHIN THE PARK OBJECT", park);
-            res.send("you hit put!");
+                db.Trailheads.findOneAndUpdate({name: uniqueId}, newBody, function (err, trailhead) {
+                    if(err) {
+                        console.log("Error finding corresponding trailhead", err);
+                    } 
+                    console.log("FOUND TRAILHEAD AND UPDATED IT IN TRAILHEADS: ", trailhead);
+                    res.send("you hit put!");    
+                });
         });
-    });
 });
+
+//backup
+// app.put('/api/parks/:id/trailheads/:id2', function updateTrailhead (req, res) {
+//     var newBody = req.body;
+//     var uniqueId = req.params.id2;
+//     var parkId = idNumToName(req.params.id); 
+//     console.log("park id is ", parkId);
+
+//     console.log("Expecting string name ", uniqueId);
+//     console.log(typeof uniqueId === 'string'); 
+
+//     console.log("Expecting updated information obj ", newBody);
+//     db.Trailheads.findOneAndUpdate({name: uniqueId}, newBody, function (err, trailhead) {
+//         if(err) {
+//             console.log("Error finding corresponding trailhead", err);
+//         } 
+//         console.log("FOUND TRAILHEAD AND UPDATED IT IN TRAILHEADS: ", trailhead);
+//             console.log("trails._id")
+//             db.NationalParks.findOneAndUpdate({'name': parkId, 'trails._id': trailhead._id}, {$set: {"trails.$" : newBody}}, function (err, park) {
+//                 if(err) {
+//                     console.log("unable to update", err);
+//                 }
+//                 console.log("FOUND AND UPDATED TRAIL WITHIN THE PARK OBJECT", park);
+//             res.send("you hit put!");
+//         });
+//     });
+// });
+
+
+
+
 
     // db.Trailheads.create(trailBody, function(err, trail) {
     //     if (err) {

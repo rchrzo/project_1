@@ -220,14 +220,14 @@ var trailUpdate = {
 }
 
 console.log("Expecting full trailUpdate object: ", trailUpdate);
-// $.ajax({
-//     method: "PUT",
-//     url: "/api/parks/" + iD + "/trailheads/" + trailToUpdate,
-//     data: trailUpdate,
-//     success: function (data) {
-//       console.log("expecting some kind of server response: ", data);
-//     }
-// });
+$.ajax({
+    method: "PUT",
+    url: "/api/parks/" + iD + "/trailheads/" + trailToUpdate,
+    data: trailUpdate,
+    success: function (data) {
+      console.log("expecting some kind of server response: ", data);
+    }
+});
 
 }
 
