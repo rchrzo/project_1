@@ -36,7 +36,8 @@ parkList.push({
 var myContent = [];
 
 myContent.push({coordinates: {lat: 36.055160, lng: -112.144296}, typePhoto: true, url: "http://www.nps.gov/brca/learn/nature/images/111birdcount2a.jpg", description: "cool blue bird on the trail", park: "Grand Canyon National Park"});
-myContent.push({coordinates: {lat: 20.710346, lng: -156.252912}, typePhoto: true, url: "http://www.gohawaii.com/en/assets/Image/MAUI/18631_mauiResized.rar/resized/Haleakala-Sunrise.jpg", description: "amazing sunrise from the observatory", park: "Haleakala National Park"});
+myContent.push({coordinates: {lat: 20.707579, lng: -156.258287}, typePhoto: false, url: "https://youtu.be/YR_Iz5ZAHzk", description: "Cool story bro", park: "Haleakala National Park"});
+myContent.push({coordinates: {lat: 20.710346, lng: -156.252912}, typePhoto: true, url: "http://www.polyadhawaiitours.com/maui/images/5074123.jpg", description: "amazing sunrise from the observatory", park: "Haleakala National Park"});
 myContent.push({coordinates: {lat: 34.0241794, lng: -116.1585505}, typePhoto: true, url: "http://images.summitpost.org/medium/631269.JPG", description: "this is a cool rock", park: "Joshua Tree National Park"});
 
 

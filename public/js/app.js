@@ -61,6 +61,7 @@ $.ajax({
             });
             marker.addListener('click', function() {
               infowindow.open(map, marker);
+              //function for media change
           });
       });
     }
@@ -84,6 +85,8 @@ $.ajax({
             });
             marker.addListener('click', function() {
               infowindow.open(map, marker);
+              console.log(this.marker);
+              renderMedia();
           });
       });
     }
@@ -211,6 +214,17 @@ $.ajax({
     }
 });
 
+}
+
+function renderMedia (e) {
+  $.ajax({
+    method: "GET",
+    url: "/api/parks/json/" + iD,
+    success: function (data) {
+      console.log(data.content);
+
+    }
+  });
 }
 
 
