@@ -6,23 +6,29 @@ body {
 	padding: 40px;
 }
 #colOne {
-	background: url('http://images5.alphacoders.com/515/515766.jpg') no-repeat;
-	background-size: 100% auto;
-    height: 300px;
+/*	background: url('http://imagine.pics/images/225/225293.jpg') no-repeat;*/
+	background-size: 100%;
+	background-color: #CCD1D1;
+    height: 100vh;
     margin:0;
-    padding:0px;
+    padding:40px;
 }
 #colTwo {
-	background: url('https://upload.wikimedia.org/wikipedia/commons/c/cb/Haleakala_crater_(1).jpg') no-repeat;
-	background-size: 100% auto;
-    height: 300px;
+/*	background: url('https://upload.wikimedia.org/wikipedia/commons/c/cb/Haleakala_crater_(1).jpg') no-repeat;*/
+	background-color: #FAE5D3;
+	background-size: 100%;
+    height: 100vh;
     margin:0;
-    padding:0px;
+    padding:40px;
 }
 #colThree {
-	background: url('http://www.hdwallpaperscool.com/wp-content/uploads/2015/04/grand-canyon-hd-wallpaper-for-desktop-background-download-grand-canyon-images.jpeg') no-repeat;
-	background-size: 100% auto;
-    height: 300px;
+/*	background: url('http://www.hdwallpaperscool.com/wp-content/uploads/2015/04/grand-canyon-hd-wallpaper-for-desktop-background-download-grand-canyon-images.jpeg') no-repeat;*/
+	background-color: #EAFAF1;
+	background-size: 100%;
+    height: 100vh;
     margin:0;
-    padding:0px;
+    padding:40px;
+}
+#descriptionBox {
+	padding: 20px;
 }

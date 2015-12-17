@@ -186,7 +186,7 @@ app.delete('/api/parks/:id/trailheads/:id2', function deleteTrailhead(req, res) 
                         console.log("Error destroying trailhead", err);
                     } 
                     console.log("FOUND TRAILHEAD AND DELETED IT IN TRAILHEADS: ", trailhead);
-                    res.send("you hit put!");   
+                    res.send("you hit delete!");   
                 });
    });
 

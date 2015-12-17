@@ -25,15 +25,20 @@ function idNumToName(idNum) {
     return parkName;
 }
 
+var dataStore = {};
+var trailStore = [];
+
 $.ajax({
   method: "GET",
   url: "/api/parks/json/" + iD,
   success: function (data) {
     console.log("your data: ", data);
+    dataStore = data;
+    trailStore = data.trails;
     var centerPoint = data.coordinates;
     map = new google.maps.Map(document.getElementById('map'), {
     center: centerPoint,
-    zoom: 14
+    zoom: 10
     });
   }
 });  
@@ -126,7 +131,17 @@ $('#updateButton').on("click", function (e) {
   $('#updateModal').modal();
   $('.dropdown-menu a').on("click", function (e){    
       $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
-       $('#dropdownMenu1update').text();    
+        var selectedTrail = $('#dropdownMenu1update').text(); 
+        console.log("expecting trail store", trailStore);
+        trailStore.forEach( function (elem) {
+            console.log("logging elem names", elem.name);
+            if(elem.name === selectedTrail) {
+              $('#trailNameU').val(elem.name);
+              $('#trailLatU').val(elem.coordinates.lat);
+              $('#trailLngU').val(elem.coordinates.lng);
+              $('#trailDescriptionU').val(elem.description);
+            }
+        });  
   });
   $('#updateTrail').on("click", function (e) {
     trailToUpdate = $('#dropdownMenu1update').text();
