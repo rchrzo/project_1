@@ -157,8 +157,8 @@ app.delete('/api/parks/:id/trailheads', function deleteTrailhead(req, res) {
             console.log(err);
         }
         console.log("EXPECTING TRAIL OBJECT: ", trail);
-        console.log("EXPECTING TRAIL ID:", trail.id);
-        var trailId = trail.id;
+        var trailId = trail._id;
+        console.log("EXPECTING TRAIL ID:", trailId);
         db.NationalParks.findOneAndUpdate({'trails._id': trailId}, {$pull: { trails: {"_id": trailId}}}, function (err, park) {
             if(err) {
                 console.log("unable to find park and destroy trail", err);
@@ -183,6 +183,29 @@ app.get('/api/trailheads', function showTrailheads (req, res) {
         }
         console.log("EXPECTING ARRAY FULL OF TRAILHEAD OBJECTS: ", trailheads);
         res.json(trailheads);
+    });
+});
+
+
+app.put('/api/parks/:id/trailheads/:id2', function updateTrailhead (req, res) {
+    var newBody = req.body;
+    var uniqueId = req.params.id2;
+
+    console.log("Expecting string name ", uniqueId);
+    console.log(typeof uniqueId === 'String') 
+    console.log("Expecting updated information obj ", newBody);
+    db.Trailheads.findOneAndUpdate({name: uniqueId}, newBody, function (err, trailhead) {
+        if(err) {
+            console.log("Error finding corresponding trailhead", err);
+        } 
+        console.log("FOUND TRAILHEAD AND UPDATED IT IN TRAILHEADS: ", trailhead);
+            db.NationalParks.findOneAndUpdate({'trails._id': trailhead._id}, {$set: { trails: newBody}}, function (err, park) {
+                if(err) {
+                    console.log("unable to update", err);
+                }
+                console.log("FOUND AND UPDATED TRAIL WITHIN THE PARK OBJECT", park);
+            res.send("you hit put!");
+        });
     });
 });
 

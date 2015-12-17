@@ -38,10 +38,14 @@
 	  	<button type="button" class="btn btn-default" id="addTrailButton">Add Trail</button>
 	  	</p>
 	  	<p>
-	  	Want to remove an existing trail?
+	  	Want to remove or modify an existing trail?
 	  	<br>
-	  	<button type="button" class="btn btn-default" id="deleteTrailButton">Delete</button> 
+	  		<button type="button" class="btn btn-default" id="deleteTrailButton">Delete Trail</button> 
+
+	  		<button type="button" class="btn btn-default" id="updateButton">Update Trail</button> 
+	  	</div>
 	  	</p>
+	 
 	  </div>
 
 <!-- 	Create Trail Modal -->
@@ -131,7 +135,76 @@
      	 </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+	<!-- update exisiting trail modal -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="updateModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					 <h4 class="modal-title">Update Trail</h4>
+				 </div>
+				 <div class="modal-body">
+           		 <fieldset class='form-horizontal'>
 
+           		 <!--  Dropdown of existing trails -->
+           		<div class ="dropdown">
+	           		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1update" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Current Trails
+		           		<span class="caret"></span>
+	           		</button>
+	           		<ul class = "dropdown-menu" aria-labelledby="dropdownMenu1">
+	           		{{#each park.trails}}
+	           			<li id= "liTrailName"><a id = "{{name}}">{{name}}</a></li>
+	           		{{/each}}
+	           		</ul>
+           		</div>
+
+
+	           	<!-- Text input-->
+	           	<br>
+	            <div class="form-group">
+	              <label class="col-md-4 control-label" for="trailNameU">Name</label>
+	              <div class="col-md-4">
+	              <input id="trailNameU" name="trailNameU" type="text" placeholder="" class="form-control input-md" required="">
+	              </div>
+	            </div>
+
+	             <!-- Text input-->
+	            <div class="form-group">
+	              <label class="col-md-4 control-label" for="trailLatU">Latitude</label>
+	              <div class="col-md-4">
+	              <input id="trailLatU" name="trailLatU" type="text" placeholder="" class="form-control input-md">
+	              </div>
+	            </div>
+
+				  <!-- Text input-->
+	            <div class="form-group">
+	              <label class="col-md-4 control-label" for="trailLng">Longitude</label>
+	              <div class="col-md-4">
+	              <input id="trailLngU" name="trailLngU" type="text" placeholder="" class="form-control input-md">
+	              </div>
+	            </div>
+
+	              <!-- Text input-->
+	            <div class="form-group">
+	              <label class="col-md-4 control-label" for="trailDescriptionU">Description</label>
+	              <div class="col-md-4">
+	              <input id="trailDescriptionU" name="trailDescriptionU" type="text" placeholder="" class="form-control input-md">
+	              </div>
+	            </div>
+
+	           	<!-- submit button -->
+           		<br>
+           		<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" id="updateTrail">Update</button>
+			     </div>
+				</fieldset>
+				</div>
+			</div><!-- /.modal-content -->
+     	 </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+				
 
 	<!-- ImportantScripts -->	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -5,6 +5,26 @@ $(document).ready(function() {
   var path = window.location.pathname;
   var iD = path.substring(path.length-1, path.length);
 
+//I know this is hackey
+function idNumToName(idNum) {
+    var parkName = ""; 
+        switch(idNum) {
+            case "1": 
+                parkName = "Joshua Tree National Park";
+                break;
+            case "2":
+                parkName = "Haleakala National Park";
+                break;
+            case "3":
+                parkName = "Grand Canyon National Park";
+                break;
+            default:
+                parkName = "undefined";
+        }
+    console.log("the park you're looking for", parkName);
+    return parkName;
+}
+
 $.ajax({
   method: "GET",
   url: "/api/parks/json/" + iD,
@@ -82,7 +102,7 @@ var trailToDelete = "";
 $('#deleteTrailButton').on("click", function (e){
     $('#deleteTrailModal').modal();
     $('.dropdown-menu a').on("click", function (e){    
-    $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
+      $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
       $('#dropdownMenu1delete').text()    
     });
     $('#deleteTrail').on("click", function (e) {
@@ -92,25 +112,22 @@ $('#deleteTrailButton').on("click", function (e){
     });
 });
 
-//I know this is hackey
-function idNumToName(idNum) {
-    var parkName = ""; 
-        switch(idNum) {
-            case "1": 
-                parkName = "Joshua Tree National Park";
-                break;
-            case "2":
-                parkName = "Haleakala National Park";
-                break;
-            case "3":
-                parkName = "Grand Canyon National Park";
-                break;
-            default:
-                parkName = "undefined";
-        }
-    console.log("the park you're looking for", parkName);
-    return parkName;
-}
+var trailToUpdate = "";
+
+//update trail
+$('#updateButton').on("click", function (e) {
+  $('#updateModal').modal();
+  $('.dropdown-menu a').on("click", function (e){    
+      $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
+       $('#dropdownMenu1update').text();    
+  });
+  $('#updateTrail').on("click", function (e) {
+    trailToUpdate = $('#dropdownMenu1update').text();
+    console.log("Expecting trail string: ", trailToDelete);
+    handleUpdateTrail();
+  });
+});
+
 
 function handleTrailCreate (e) {
     var parkId = iD;
@@ -158,15 +175,61 @@ function handleTrailCreate (e) {
     $('#trailLat').val('');
     $('#traiLng').val('');
     $('#trailDescription').val('');
+    location.reload();
 }
 
 
 function handleDeleteTrail (e) {
   console.log("Expecting trailToDelete to be a string of a park: ", trailToDelete);
+  var parkId = idNumToName(iD); 
   
+  var trailData = {
+  trail: trailToDelete,
+  park: parkId
+  };
+  console.log("Expecting trailData object with trail and park full", trailData); 
+
+  $.ajax({
+      method: "DELETE",
+      url: "/api/parks/" + iD + "/trailheads",
+      data: trailData,
+      success: function (data) {
+        console.log("expecting a delete confirmation", data);
+      }
+  });
+
+  $('#dropdownMenu1delete').text('Current Trails');
+  $('#albumModal').modal('hide');
+  location.reload();
 }
 
+function handleUpdateTrail (e) {
+console.log("Expecting trailToUpdate to be a string of a park", trailToUpdate);
+    var parkId = idNumToName(iD);
+    var trailName = $('#trailNameU').val();
+    var latitude = $('#trailLatU').val();
+    var longitude = $('#trailLngU').val();
+    var trailDescription = $('#trailDescriptionU').val();
 
+
+var trailUpdate = {
+    name: trailName,
+    park: parkId,
+    coordinates: {lat: latitude , lng: longitude},
+    description: trailDescription
+}
+
+console.log("Expecting full trailUpdate object: ", trailUpdate);
+// $.ajax({
+//     method: "PUT",
+//     url: "/api/parks/" + iD + "/trailheads/" + trailToUpdate,
+//     data: trailUpdate,
+//     success: function (data) {
+//       console.log("expecting some kind of server response: ", data);
+//     }
+// });
+
+}
 
 
 
