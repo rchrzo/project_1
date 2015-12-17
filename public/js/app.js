@@ -224,10 +224,10 @@ function renderMedia (contentId, url, type) {
 console.log("Expecting content id string", contentId);
   if(type) {
     //description append with img scr
-    $('#descriptionBox').append("<img src=" + url + ">");
+    $('#descriptionBox').html("<img src=" + url + ">");
   } else {
     //description append with iframe 
-    $('#descriptionBox').append("<iframe width=" + "560" + "height=" + "315" + " src=" + "https://www.youtube.com/embed/ooWkA_-lOHA" + "frameborder=" + "0" + "allowfullscreen></iframe>");
+    $('#descriptionBox').html("<iframe width='560' height= '315' src='" + url + "' frameborder='0' allowfullscreen></iframe>");
   }
 }
 

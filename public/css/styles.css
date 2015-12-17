@@ -5,3 +5,24 @@
 body {
 	padding: 40px;
 }
+#colOne {
+	background: url('http://images5.alphacoders.com/515/515766.jpg') no-repeat;
+	background-size: 100% auto;
+    height: 300px;
+    margin:0;
+    padding:0px;
+}
+#colTwo {
+	background: url('https://upload.wikimedia.org/wikipedia/commons/c/cb/Haleakala_crater_(1).jpg') no-repeat;
+	background-size: 100% auto;
+    height: 300px;
+    margin:0;
+    padding:0px;
+}
+#colThree {
+	background: url('http://www.hdwallpaperscool.com/wp-content/uploads/2015/04/grand-canyon-hd-wallpaper-for-desktop-background-download-grand-canyon-images.jpeg') no-repeat;
+	background-size: 100% auto;
+    height: 300px;
+    margin:0;
+    padding:0px;
+}
