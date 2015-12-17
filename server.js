@@ -76,6 +76,7 @@ app.get('/api/parks', function getParkID(req, res) {
 
 
 app.get('/api/parks/:id/content', function getParkContent (req, res) {
+     console.log("YOU ARE IN GET CONTENT");
      console.log("expecting a park id number: ", req.params.id)
     var parkId = req.params.id;
     var parkName = idNumToName(parkId);
@@ -108,6 +109,7 @@ app.get('/api/parks/:id/content', function getParkContent (req, res) {
 // THIS WILL GET ALL TRAILHEADS FROM ONE PARK
 // //get the trailheads
 app.get('/api/parks/:id/trailheads', function indexTrailheads(req, res) {
+    console.log("YOU ARE IN GET");
     console.log("expecting a park id number: ", req.params.id)
     var parkId = req.params.id;
     var parkName = idNumToName(parkId);
@@ -122,57 +124,93 @@ app.get('/api/parks/:id/trailheads', function indexTrailheads(req, res) {
 });
 
 // //create a trailhead FOR PARK :ID
-app.post('/api/parks/:id/trailheads', function createTrailhead(req, res) {
+app.post('/api/parks/:id/trailheads/:id2', function createTrailhead(req, res) {
     var trailBody = req.body;
-    console.log("You hit post.")
-    console.log("trailBody: ", trailBody);
-        db.NationalParks.findOne({name: trailBody.park}, function (err, park) {
-            if(err) {
-                console.log("ERROR FINDING PARK: ", park);
-            }
-            var trailhead = new db.Trailheads(trailBody);
-            park.trails.push(trailhead);
-            park.save(function (err, savedEvent) {
-                if(err) {
-                    console.log("ERROR SAVING: ", err);
-                }
-                console.log("NEW TRAILHEAD CREATED WITHIN PARK", savedEvent);
-                db.Trailheads.create(trailhead, function (err, trail) {
-                    if(err) {
-                        console.log("error crrating new trailhead", err)
-                    }
-                    console.log("CREATED TRAILHEAD WITHIN TRAILHEAD ", trail);
-                    res.send(trail);
-                });
-            });
-        });
-});
-
-app.delete('/api/parks/:id/trailheads', function deleteTrailhead(req, res) {
-    var trailToDestroy = req.body.trail;
-    var park = req.body.park;
-    console.log("expecting a trail string: ", trailToDestroy);
-    db.Trailheads.findOne({name: trailToDestroy}, function (err, trail) {
+    var trailToCreate = req.params.id2;
+    var parkToCreateItIn = idNumToName(req.params.id);
+    console.log("expecting trailBody to be an object: ", trailBody);
+    console.log("expecting trailToCreate to be an String: ", trailToCreate);
+    console.log("expecting trailToCreateItIn to be an String: ", parkToCreateItIn);
+    db.Trailheads.create(trailBody, function (err, trail) {
         if(err) {
-            console.log(err);
+            console.log("error creating trail in TRAILHEADS: ", trail);
         }
-        console.log("EXPECTING TRAIL OBJECT: ", trail);
-        var trailId = trail._id;
-        console.log("EXPECTING TRAIL ID:", trailId);
-        db.NationalParks.findOneAndUpdate({'trails._id': trailId}, {$pull: { trails: {"_id": trailId}}}, function (err, park) {
+        var yourNewTrail = trail;
+        console.log("SUCCESSFULLY CREATED TRAIL IN TRAILHEADS: ", trail);
+        db.NationalParks.findOneAndUpdate({'name': parkToCreateItIn}, {$push: {"trails": trailBody}}, {safe: true, upsert: true}, function (err, trailInPark) {
             if(err) {
-                console.log("unable to find park and destroy trail", err);
+                console.log("error creating new trail in PARK: ", trailInPark);
             }
-            console.log("FOUND AND DESTROYED TRAIL WITHIN PARK OBJECT", park);
-            db.Trailheads.findOneAndRemove({"_id": trailId}, function (err, trailDeleted){
-                if(err) {
-                    console.log("unable to remove trail from trailheads", err);
-                }
-                console.log("SUCCESSFULLY DESTROYED TRAIL FROM TRAILHEADS", trailDeleted);
-                res.send("you hit delete!");
-            });   
+            console.log("SUCCESSFULLY CREATED TRAIL IN PARK", trailInPark);
+            res.send("You hit post.");
         });
     });
+});
+    // console.log("trailBody: ", trailBody);
+    //     db.NationalParks.findOne({name: trailBody.park}, function (err, park) {
+    //         if(err) {
+    //             console.log("ERROR FINDING PARK: ", park);
+    //         }
+    //         var trailhead = new db.Trailheads(trailBody);
+    //         park.trails.push(trailhead);
+    //         park.save(function (err, savedEvent) {
+    //             if(err) {
+    //                 console.log("ERROR SAVING: ", err);
+    //             }
+    //             console.log("NEW TRAILHEAD CREATED WITHIN PARK", savedEvent);
+    //             db.Trailheads.create(trailhead, function (err, trail) {
+    //                 if(err) {
+    //                     console.log("error crrating new trailhead", err)
+    //                 }
+    //                 console.log("CREATED TRAILHEAD WITHIN TRAILHEAD ", trail);
+    //                 res.send(trail);
+    //             });
+    //         });
+    //     });
+
+
+app.delete('/api/parks/:id/trailheads/:id2', function deleteTrailhead(req, res) {
+    console.log("YOU ARE IN DELETE");
+    var trailToDestroy = req.params.id2;
+    var parkItsIn = idNumToName(req.params.id);
+    console.log("This is the trail you want to destroy: ", trailToDestroy);
+    console.log("Should be a string that we can search with? ", typeof trailToDestroy === 'string');
+    console.log("This is the park that it's in: ", parkItsIn);
+    db.NationalParks.findOneAndUpdate({'name': parkItsIn, 'trails.name': trailToDestroy}, {$pull: { trails: {"name": trailToDestroy}}}, function (err, park) {
+                if(err) {
+                    console.log("UNABLE TO DESTROY", err);
+                }
+                console.log("FOUND AND DELETED TRAIL WITHIN THE PARK OBJECT", park);
+                db.Trailheads.findOneAndRemove({'name': trailToDestroy}, function (err, trailhead) {
+                    if(err) {
+                        console.log("Error destroying trailhead", err);
+                    } 
+                    console.log("FOUND TRAILHEAD AND DELETED IT IN TRAILHEADS: ", trailhead);
+                    res.send("you hit put!");   
+                });
+   });
+
+    // db.Trailheads.findOne({name: trailToDestroy}, function (err, trail) {
+    //     if(err) {
+    //         console.log(err);
+    //     }
+    //     console.log("EXPECTING TRAIL OBJECT: ", trail);
+    //     var trailId = trail._id;
+    //     console.log("EXPECTING TRAIL ID:", trailId);
+    //     db.NationalParks.findOneAndUpdate({'trails._id': trailId}, {$pull: { trails: {"_id": trailId}}}, function (err, park) {
+    //         if(err) {
+    //             console.log("unable to find park and destroy trail", err);
+    //         }
+    //         console.log("FOUND AND DESTROYED TRAIL WITHIN PARK OBJECT", park);
+    //         db.Trailheads.findOneAndRemove({"_id": trailId}, function (err, trailDeleted){
+    //             if(err) {
+    //                 console.log("unable to remove trail from trailheads", err);
+    //             }
+    //             console.log("SUCCESSFULLY DESTROYED TRAIL FROM TRAILHEADS", trailDeleted);
+    //             res.send("you hit delete!");
+    //         });   
+    //     });
+    // });
 });
 
 

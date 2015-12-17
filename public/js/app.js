@@ -130,12 +130,11 @@ $('#updateButton').on("click", function (e) {
 
 
 function handleTrailCreate (e) {
-    var parkId = iD;
     var trailName = $('#trailName').val();
     var latitude = $('#trailLat').val();
     var longitude = $('#trailLng').val();
     var trailDescription = $('#trailDescription').val();
-    parkId = idNumToName(parkId);
+    parkId = idNumToName(iD);
     console.log("expecting park id string: ", parkId)
     
     latitude = parseFloat(latitude);
@@ -153,18 +152,9 @@ function handleTrailCreate (e) {
 
     console.log(typeof formData.coordinates.lat === 'number');
     console.log(typeof formData.coordinates.lng === 'number');
-
-    console.log("expecting full trail object ready for post: ", formData);
-    function urlConcat(iD) {
-      var url = "/api/parks/";
-      url += iD + "/trailheads";
-      return url;
-    }
-    var expectedUrl = urlConcat(iD);
-    console.log("our expected url is: ", expectedUrl);
     $.ajax({
         method: "POST",
-        url: expectedUrl,
+        url: "/api/parks/" + iD + "/trailheads/" + trailName,
         data: formData,
         success: function (result) {
           console.log("expecting a successul post result to trailheads: ", result);
@@ -175,24 +165,16 @@ function handleTrailCreate (e) {
     $('#trailLat').val('');
     $('#traiLng').val('');
     $('#trailDescription').val('');
-    location.reload();
+    // location.reload();
 }
 
 
 function handleDeleteTrail (e) {
   console.log("Expecting trailToDelete to be a string of a park: ", trailToDelete);
-  var parkId = idNumToName(iD); 
-  
-  var trailData = {
-  trail: trailToDelete,
-  park: parkId
-  };
-  console.log("Expecting trailData object with trail and park full", trailData); 
 
   $.ajax({
       method: "DELETE",
-      url: "/api/parks/" + iD + "/trailheads",
-      data: trailData,
+      url: "/api/parks/" + iD + "/trailheads/" + trailToDelete,
       success: function (data) {
         console.log("expecting a delete confirmation", data);
       }
@@ -200,7 +182,7 @@ function handleDeleteTrail (e) {
 
   $('#dropdownMenu1delete').text('Current Trails');
   $('#albumModal').modal('hide');
-  location.reload();
+  // location.reload();
 }
 
 function handleUpdateTrail (e) {
