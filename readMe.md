@@ -1,18 +1,25 @@
 #Welcome to my maps project! 
 
+[my heroku app](https://still-eyrie-9071.herokuapp.com/ "Heroku App")
+
+[github](https://github.com/bw-giraffe/project_1 "Github")
+
+![screenshot]
+(http://i.imgur.com/Wch93V2.png)
+
 Users can see photos and videos of the places I've visited by exploring their coordinates on a map. Users can also add,  delete, or update the trailheads at these places by using the handy GUI I've provided on the page.  
 
-It was super challenging and fun to build it. This past year I visited three awesome National Parks. Basically, I wanted to create a way for me to showcase the photos and video I took at each park. I've also wanted an excuse to use the Google Maps API for some time now. 
+This app was super challenging and fun to build it. This past year I visited three awesome National Parks. Basically, I wanted to create a way for me to showcase the photos and video I took at each park. I've also wanted an excuse to use the Google Maps API for some time now. 
 
-To access the data I've put in my Mongo database, follow these instructions: 
+To access the data I've put into my Mongo database, follow these instructions: 
 
 Since there are only theree parks, you should know them by their IDs
 
-###Joshua Tree National Park is 1
+####Joshua Tree National Park is 1
 
-###Haleakala National Park is 2
+####Haleakala National Park is 2
 
-###Grand Canyon National Park is 3
+####Grand Canyon National Park is 3
 
 Simple enough, right? 
 
@@ -79,6 +86,10 @@ How about those nested functions?
 (http://i.imgur.com/9BaFyHZ.png)
 
 
+5) One of the known bugs I'm having is trails not completely deleting from their corresponding Park, but only from the database. 
+
+
+
 ###Moving Forward
 I have a laundry list of things I'd like to fix/accomplish moving forward, and I'm excited to work on them.
 
@@ -93,12 +104,16 @@ I have a laundry list of things I'd like to fix/accomplish moving forward, and I
 4) I'd love to make my Content more specific, with fields indicating what trail, what time of year the photo or video was taken, etc.
 
 5) FIX MY LANDING PAGE! The reason why I have three differently colored boxes on my landing page is because I wanted them to be clean looking images of each park, that upon click will direct you to the corresponding page.
+![screenshot]
+(http://i.imgur.com/0UFpbnH.jpg)
 
 6) A friendly lat/lng finder that allows users to drop a pin on the map which will fill in the lat and long fields of a create new trail form. 
 
 7) Add a private content creation CRUD for me to put in new content more easily instead of hard coding it. 
 
 8) Make the site more pretty and fix the html and css. 
+
+9) Hard code in map zoom levels for National Parks Schema. 
 
 
 
