@@ -127,7 +127,8 @@ $('#deleteTrailButton').on("click", function (e){
 var trailToUpdate = "";
 
 //update trail
-$('#updateButton').on("click", function (e) {
+
+function updateTrailModal() {
   $('#updateModal').modal();
   $('.dropdown-menu a').on("click", function (e){    
       $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
@@ -147,7 +148,11 @@ $('#updateButton').on("click", function (e) {
     trailToUpdate = $('#dropdownMenu1update').text();
     console.log("Expecting trail string: ", trailToDelete);
     handleUpdateTrail();
-  });
+});
+}
+
+$('#updateButton').on("click", function (e) {
+  updateTrailModal();
 });
 
 
@@ -172,8 +177,15 @@ function handleTrailCreate (e) {
       park: parkId
     }
 
+    //input validation
     console.log(typeof formData.coordinates.lat === 'number');
     console.log(typeof formData.coordinates.lng === 'number');
+
+    var goodToGo = checkInput(formData);
+    if(goodToGo === false) {
+      alert("Invalid input, please try again");
+    } else {
+    
     $.ajax({
         method: "POST",
         url: "/api/parks/" + iD + "/trailheads/" + trailName,
@@ -189,7 +201,7 @@ function handleTrailCreate (e) {
     $('#trailDescription').val('');
     // location.reload();
 }
-
+}
 
 function handleDeleteTrail (e) {
   console.log("Expecting trailToDelete to be a string of a park: ", trailToDelete);
@@ -223,16 +235,22 @@ var trailUpdate = {
     description: trailDescription
 }
 
+var formGoodToGo = checkInput(trailUpdate);
+console.log("is form data valid?", formGoodToGo);
+if(formGoodToGo === false) {
+  alert("Invalid input, please try again");
+} else {
+
 console.log("Expecting full trailUpdate object: ", trailUpdate);
 $.ajax({
-    method: "PUT",
-    url: "/api/parks/" + iD + "/trailheads/" + trailToUpdate,
-    data: trailUpdate,
-    success: function (data) {
-      console.log("expecting some kind of server response: ", data);
-    }
+  method: "PUT",
+  url: "/api/parks/" + iD + "/trailheads/" + trailToUpdate,
+  data: trailUpdate,
+  success: function (data) {
+    console.log("expecting some kind of server response: ", data);
+  }
 });
-
+}
 }
 
 function renderMedia (contentId, url, type) {
@@ -246,6 +264,14 @@ console.log("Expecting content id string", contentId);
   }
 }
 
+function checkInput(formObject) {
+  for (var key in formObject) {
+    if(formObject[key] === "" || formObject[key] === undefined || formObject[key] === null || formObject[key] === NaN) {
+      return false; 
+    }
+  }
+return true;
+}
 
 
 
