@@ -9,7 +9,7 @@
 
 Users can see photos and videos of the places I've visited by exploring their coordinates on a map. Users can also add,  delete, or update the trailheads at these places by using the handy GUI I've provided on the page.  
 
-This app was super challenging and fun to build it. This past year I visited three awesome National Parks. Basically, I wanted to create a way for me to showcase the photos and video I took at each park. I've also wanted an excuse to use the Google Maps API for some time now. 
+This app was super challenging and fun to build. This year I visited three awesome National Parks. Basically, I wanted to create a way for me to showcase the photos and video I took at each park. I've also wanted an excuse to use the Google Maps API for some time now. 
 
 To access the data I've put into my Mongo database, follow these instructions: 
 
@@ -45,7 +45,7 @@ As you will see on the app, there are two kinds of markers. One denotes the trai
 '/api/parks/:id/trailheads'
 
 
-###I set up my schema so that trailheads is separate schema which is eventually embedded inside of the National Parks schema. 
+###I set up my schema so that trailheads is a separate schema which is eventually embedded inside of the National Parks schema. 
 So in order to GET ALL of the TRAILHEADS from all parks, use the path
 
 '/api/trailheads'
