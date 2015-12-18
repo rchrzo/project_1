@@ -51,8 +51,9 @@ $.ajax({
       console.log("trailheads data", dataTrails);
       dataTrails.forEach(function (elem){
           var contentString = elem.description;
+          var trailName = elem.name;
           var infowindow = new google.maps.InfoWindow({
-              content: contentString,
+              content: "<h5>" + trailName + "</h5>" + contentString,
               maxWidth: 300
           });
           var marker = new google.maps.Marker({
@@ -185,21 +186,20 @@ function handleTrailCreate (e) {
     if(goodToGo === false) {
       alert("Invalid input, please try again");
     } else {
-    
+
     $.ajax({
         method: "POST",
         url: "/api/parks/" + iD + "/trailheads/" + trailName,
         data: formData,
         success: function (result) {
           console.log("expecting a successul post result to trailheads: ", result);
+            $('#trailName').val('');
+            $('#trailLat').val('');
+            $('#trailLng').val('');
+            $('#trailDescription').val('');
+          refreshPage();
         }
     });
-
-    $('#trailName').val('');
-    $('#trailLat').val('');
-    $('#traiLng').val('');
-    $('#trailDescription').val('');
-    // location.reload();
 }
 }
 
@@ -211,6 +211,8 @@ function handleDeleteTrail (e) {
       url: "/api/parks/" + iD + "/trailheads/" + trailToDelete,
       success: function (data) {
         console.log("expecting a delete confirmation", data);
+        $('#dropdownMenu1delete').text("");
+        refreshPage();
       }
   });
 
@@ -248,6 +250,11 @@ $.ajax({
   data: trailUpdate,
   success: function (data) {
     console.log("expecting some kind of server response: ", data);
+    $('#trailNameU').val("");
+    $('#trailLatU').val("");
+    $('#trailLngU').val("");
+    $('#trailDescriptionU').val("");
+    refreshPage();
   }
 });
 }
@@ -273,6 +280,9 @@ function checkInput(formObject) {
 return true;
 }
 
+function refreshPage() {
+  window.setTimeout(function(){location.reload()}, 2200);
+}
 
 
 

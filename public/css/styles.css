@@ -34,7 +34,8 @@ body {
  /*   padding:40px;*/
 }
 #descriptionBox {
-	padding: 20px;
+	text-align: left;
+	padding: 10px;
 }
 #trailBox {
 	background-color: #FAE5D3;
