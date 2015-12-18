@@ -57,26 +57,26 @@ I encountered many challenges for this project, some of which still persist.
 1) Wrapping my head around the Mongo database structure was difficult because when you have separate schema embedded inside of one another, you have to update the schema and also the schema that they are being held in. This concept was confusing, but makes sense when considering that Mongo is a non-relational database.
 
 ![screenshot]
-(http://imgur.com/PGojQwr)
+(http://i.imgur.com/Rub9LXZ.png)
 
 2) Mongoose is hard because even though it's designed to make managing Mongo easier, it has its own weird idiosyncrasies.
 
 3) Wiping the DB and then seeding it
 
 ![screenshot]
-(http://imgur.com/XQcXbap)
+(http://i.imgur.com/Ur1i1XC.png)
 
 How about those nested functions? 
 
 ![screenshot]
-(https://imgflip.com/i/vzuso)
+(http://i.imgur.com/QpHSn7i.jpg)
 
 4) I really wanted to spend more time on the client side, make my html and css look really beautiful but I spent most of that time connecting the server.js and the app.js or wrangling with a bug.
 
 
 ##I'm pleased with my input checker
 ![screenshot]
-(http://imgur.com/WF9G54E)
+(http://i.imgur.com/9BaFyHZ.png)
 
 
 ###Moving Forward
