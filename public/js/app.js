@@ -14,6 +14,7 @@ $.ajax({
   method: "GET",
   url: "/api/parks/json/" + iD,
   success: function (data) {
+		// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
     console.log("your data: ", data);
     dataStore = data;
     trailStore = data.trails;
@@ -23,13 +24,14 @@ $.ajax({
     zoom: 10
     });
   }
-});  
+});
 
-//gets data for content map markers 
+//gets data for content map markers
 $.ajax({
   method: "GET",
   url: "/api/parks/" + iD + "/trailheads",
   success: function (dataTrails) {
+		// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
     console.log(iD);
     console.log("trailheads data", dataTrails);
     dataTrails.forEach(function (elem){
@@ -56,20 +58,23 @@ $.ajax({
     }
 });
 
-//gets data for trailhead map markers 
+//gets data for trailhead map markers
 $.ajax({
   method: "GET",
   url: "/api/parks/" + iD + "/content",
   success: function (dataContent) {
+		// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
     console.log("expecting an array full of Content objects: ", dataContent)
         dataContent.forEach(function (elem){
+				// TODO: Fix indentaiton issues here -jc
         var contentString = elem.description;
         var contentId = elem._id;
         var type = elem.typePhoto;
         var url = elem.url;
+				// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
         console.log("here is your content id:", contentId);
         var infowindow = new google.maps.InfoWindow({
-          content: contentString,  
+          content: contentString,
           maxWidth: 300,
           id: contentId
         });
@@ -98,9 +103,9 @@ var trailToDelete = "";
 
 $('#deleteTrailButton').on("click", function (e){
   $('#deleteTrailModal').modal();
-  $('.dropdown-menu a').on("click", function (e){    
+  $('.dropdown-menu a').on("click", function (e){
     $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
-    $('#dropdownMenu1delete').text()    
+    $('#dropdownMenu1delete').text()
   });
   $('#deleteTrail').on("click", function (e) {
     trailToDelete = $('#dropdownMenu1delete').text();
@@ -118,11 +123,13 @@ $('#updateButton').on("click", function (e) {
 
 function updateTrailModal() {
   $('#updateModal').modal();
-  $('.dropdown-menu a').on("click", function (e){    
+  $('.dropdown-menu a').on("click", function (e){
     $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');
-      var selectedTrail = $('#dropdownMenu1update').text(); 
+      var selectedTrail = $('#dropdownMenu1update').text();
+			// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
       console.log("expecting trail store", trailStore);
       trailStore.forEach( function (elem) {
+				// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
         console.log("logging elem names", elem.name);
         if(elem.name === selectedTrail) {
           $('#trailNameU').val(elem.name);
@@ -130,10 +137,11 @@ function updateTrailModal() {
           $('#trailLngU').val(elem.coordinates.lng);
           $('#trailDescriptionU').val(elem.description);
         }
-      });  
+      });
   });
   $('#updateTrail').on("click", function (e) {
     trailToUpdate = $('#dropdownMenu1update').text();
+		// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
     console.log("Expecting trail string: ", trailToDelete);
     handleUpdateTrail();
 });
@@ -146,10 +154,12 @@ function handleTrailCreate (e) {
   var longitude = $('#trailLng').val();
   var trailDescription = $('#trailDescription').val();
   parkId = idNumToName(iD);
+	// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
   console.log("expecting park id string: ", parkId)
-  
+
   latitude = parseFloat(latitude);
   longitude = parseFloat(longitude);
+	// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
   console.log(typeof longitude === 'number');
   console.log(typeof latitude === 'number');
   console.log("lat" + latitude + "lng" + longitude);
@@ -161,10 +171,12 @@ function handleTrailCreate (e) {
     park: parkId
   }
 
+	// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
   //input validation
   console.log(typeof formData.coordinates.lat === 'number');
   console.log(typeof formData.coordinates.lng === 'number');
 
+	// TODO: Validation, yay! Good job! -jc
   var goodToGo = checkInput(formData);
   if(goodToGo === false) {
     alert("Invalid input, please try again");
@@ -175,6 +187,7 @@ function handleTrailCreate (e) {
       url: "/api/parks/" + iD + "/trailheads/" + trailName,
       data: formData,
       success: function (result) {
+				// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
         console.log("expecting a successul post result to trailheads: ", result);
           $('#trailName').val('');
           $('#trailLat').val('');
@@ -188,12 +201,14 @@ function handleTrailCreate (e) {
 
 //handles forms and ajax requests for delete
 function handleDeleteTrail (e) {
+	// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
   console.log("Expecting trailToDelete to be a string of a park: ", trailToDelete);
 
   $.ajax({
     method: "DELETE",
     url: "/api/parks/" + iD + "/trailheads/" + trailToDelete,
     success: function (data) {
+			// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
       console.log("expecting a delete confirmation", data);
       $('#dropdownMenu1delete').text("");
       refreshPage();
@@ -207,6 +222,7 @@ function handleDeleteTrail (e) {
 
 //handles forms and ajax requests for updating trails
 function handleUpdateTrail (e) {
+	// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
   console.log("Expecting trailToUpdate to be a string of a park", trailToUpdate);
   var parkId = idNumToName(iD);
   var trailName = $('#trailNameU').val();
@@ -222,16 +238,19 @@ function handleUpdateTrail (e) {
   }
 
   var formGoodToGo = checkInput(trailUpdate);
+	// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
   console.log("is form data valid?", formGoodToGo);
   if(formGoodToGo === false) {
     alert("Invalid input, please try again");
   } else {
+		// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
     console.log("Expecting full trailUpdate object: ", trailUpdate);
     $.ajax({
     method: "PUT",
     url: "/api/parks/" + iD + "/trailheads/" + trailToUpdate,
     data: trailUpdate,
     success: function (data) {
+			// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
       console.log("expecting some kind of server response: ", data);
       $('#trailNameU').val("");
       $('#trailLatU').val("");
@@ -245,21 +264,23 @@ function handleUpdateTrail (e) {
 
 //helper function used to render media on marker clicks
 function renderMedia (contentId, url, type) {
+	// TODO: Please remove unecessary console.logs from production versions as it will slow down performance. -jc
 console.log("Expecting content id string", contentId);
   if(type) {
     //description append with img scr
     $('#descriptionBox').html("<img src=" + url + ">");
   } else {
-    //description append with iframe 
+    //description append with iframe
     $('#descriptionBox').html("<iframe width='560' height= '315' src='" + url + "' frameborder='0' allowfullscreen></iframe>");
   }
 }
 
+// TODO: Great validation and use of an enhanced for loop.  Keep this code for future use, it'll come in handy. -jc
 //helper function checks for valid input for data objects sent to different paths
 function checkInput(formObject) {
   for (var key in formObject) {
     if(formObject[key] === "" || formObject[key] === undefined || formObject[key] === null || formObject[key] === NaN) {
-      return false; 
+      return false;
     }
   }
 return true;
@@ -272,9 +293,9 @@ function refreshPage() {
 
 //was using this function as a reference function early on
 function idNumToName(idNum) {
-  var parkName = ""; 
+  var parkName = "";
     switch(idNum) {
-        case "1": 
+        case "1":
             parkName = "Joshua Tree National Park";
             break;
         case "2":
