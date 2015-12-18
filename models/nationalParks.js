@@ -6,6 +6,8 @@ var Content = require('./content');
 
 var nationalParkSchema = new Schema({
 	name: String,
+	// TODO: Consider defining coordinates like you did in trailheads.js for consistency.
+	// 	coordinates: {lat: Number, lng: Number} -jc
 	coordinates: {},
 	yearEstablished: String,
 	annualVisitors: String,

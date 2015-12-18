@@ -1,18 +1,28 @@
 {
   "name": "project_1",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Welcome to my maps project!",
+  "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.14.1",
+    "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "hbs": "^4.0.0",
-    "mongoose": "^4.3.1"
+    "mongo": "^0.1.0",
+    "mongoose": "^4.3.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justincastilla/project_1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/justincastilla/project_1/issues"
+  },
+  "homepage": "https://github.com/justincastilla/project_1#readme"
 }
